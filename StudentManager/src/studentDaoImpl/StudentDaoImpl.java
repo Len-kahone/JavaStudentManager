@@ -3,6 +3,7 @@ package studentDaoImpl;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import student.Student;
 import studentDao.StudentDao;
 import util.JDBCUtil;
@@ -70,17 +71,35 @@ public class StudentDaoImpl implements StudentDao {
         QueryRunner query = new QueryRunner(JDBCUtil.getSource());
         String sql = "select * from stu where 1=1";
         ArrayList<String> l=new ArrayList<String>();
-        if(TextUtil.isEmpty(sname)){
-            sql=sql+"and sname like ? ";
+        if(!TextUtil.isEmpty(sname)){
+            sql=sql+" "+"and sname like ? ";
             l.add("%"+sname+"%");
         }
-        if(TextUtil.isEmpty(gender)){
-            sql=sql+"and gender=?";
+        if(!TextUtil.isEmpty(gender)){
+            sql=sql+" and gender=?";
             l.add(gender);
         }
 
+
         List<Student> list = query.query(sql, new BeanListHandler<Student>(Student.class),l.toArray());
         return list;
+
+    }
+
+    @Override
+    public List<Student> findStudentByPage(int currentPage) throws SQLException {
+        QueryRunner query = new QueryRunner(JDBCUtil.getSource());
+        return  query.query("select * from stu limit ? offset ?",new BeanListHandler<Student>(Student.class),
+                PAGE_SIZE,currentPage);
+
+    }
+
+    @Override
+    public int findCount() throws SQLException {
+
+        QueryRunner query = new QueryRunner(JDBCUtil.getSource());
+       Long  count= (Long) query.query("SELECT COUNT(*) FROM stu",new ScalarHandler());
+         return count.intValue();
 
     }
 }

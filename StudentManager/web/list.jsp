@@ -23,13 +23,13 @@
 
 </head>
 <body>
-<form action="SearchStudentServlet" method="post">
+
     <table border="1" width="700">
 
         <tr >
             <td colspan="8">
 
-                <form action="">
+                <form action="SearchServlet" method="post">
                     按姓名查询：<input type="text" name="sname">
                     按性别查询：<select name="gender" id="">
                     <option value="">请选择性别--</option>
@@ -66,6 +66,6 @@
             </tr>
         </c:forEach>
     </table>
-</form>
+
 </body>
 </html>

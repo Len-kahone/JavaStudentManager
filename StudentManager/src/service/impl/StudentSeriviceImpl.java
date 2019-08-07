@@ -1,6 +1,7 @@
 package service.impl;
 
 import service.StudentService;
+import student.PageBean;
 import student.Student;
 import studentDaoImpl.StudentDaoImpl;
 
@@ -44,5 +45,27 @@ public class StudentSeriviceImpl implements StudentService {
     public void updateStudent(Student s) throws SQLException {
         StudentDaoImpl studentDao = new StudentDaoImpl();
         studentDao.updateStudent(s);
+    }
+
+    @Override
+    public List<Student> searchStudent(String sname, String gender) throws SQLException {
+        StudentDaoImpl studentDao = new StudentDaoImpl();
+        return studentDao.searchStudent(sname, gender);
+    }
+
+    @Override
+    public PageBean findStudentByPage(int currentPage) throws SQLException {
+        PageBean<Student> bean = new PageBean<Student>();
+        StudentDaoImpl studentDao = new StudentDaoImpl();
+        List<Student> list = studentDao.findStudentByPage(currentPage);
+        int count = studentDao.findCount();
+        bean.setCount(count);
+        bean.setCurrentPage(currentPage);
+
+        bean.setPageSize( studentDao.PAGE_SIZE);
+        bean.setList(list);
+        bean.setTotalPage(count%studentDao.PAGE_SIZE==0?count/studentDao.PAGE_SIZE:count/studentDao.PAGE_SIZE+1);
+
+        return bean;
     }
 }

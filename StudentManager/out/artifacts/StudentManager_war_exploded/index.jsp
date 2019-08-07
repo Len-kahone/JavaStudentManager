@@ -12,5 +12,6 @@
   </head>
   <body>
   <a href="./StudentList">查看学生列表</a>
+  <a href="./StudentPageServlet?currentPage=1">查看学生分页</a>
   </body>
 </html>

@@ -88,4 +88,17 @@ public class Student {
         this.hobby = hobby;
         this.info = info;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "sid=" + sid +
+                ", sname='" + sname + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthday=" + birthday +
+                ", hobby='" + hobby + '\'' +
+                ", info='" + info + '\'' +
+                '}';
+    }
 }

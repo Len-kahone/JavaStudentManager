@@ -1,5 +1,6 @@
 package service;
 
+import student.PageBean;
 import student.Student;
 
 import java.sql.SQLException;
@@ -17,4 +18,6 @@ public interface StudentService {
     void deleteStudent(String id) throws SQLException;
     Student findStudentById(String sid) throws SQLException;
     void updateStudent(Student s) throws SQLException;
+    List<Student> searchStudent(String sname,String gender) throws SQLException;
+    PageBean findStudentByPage(int currentPage) throws SQLException;
 }
